@@ -9,7 +9,6 @@ const getTopMusic = (page) => async (dispatch) => {
       page ? "&page=" + page : ""
     }`;
 
-    console.log(TOP_MUSIC_URL);
     const response = await fetch(TOP_MUSIC_URL);
     const { tracks } = await response.json();
     dispatch(actions.getTopMusicSuccess(tracks.track));

@@ -40,7 +40,7 @@ export default function TrackPreview({ track, navigation }) {
           {track.artist.name}
         </Text>
         <Text onPress={handelLinkPress} style={styles.link}>
-          {track.url}
+          {track.url.length > 45 ? track.url.substr(0, 45) + "..." : track.url}
         </Text>
       </View>
     </View>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 12,
     maxWidth: "70%",
-    minHeight: 100,
+    height: 100,
     justifyContent: "space-between",
   },
   songName: {

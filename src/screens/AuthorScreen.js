@@ -3,30 +3,41 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
-  ImageBackground,
+  Image,
   View,
+  FlatList,
 } from "react-native";
 
 import { connect } from "react-redux";
+import shortid from "shortid";
 
 function AuthorScreen({ artist }) {
   return artist ? (
     <View style={styles.container}>
-      <ImageBackground
+      <Image
         style={styles.artistImage}
         source={{ uri: artist.image[3]["#text"] }}
-      >
-        <Text>{artist.name}</Text>
-        <View>
-          <Text>
-            Tags:
-            {artist.tags.tag.map((tag, index) => (
-              <Text key={index}>{tag.name},</Text>
-            ))}
-          </Text>
+      />
+      <Text style={styles.artistName}>{artist.name}</Text>
+      <View style={styles.artistBio}>
+        <View style={styles.tagsCont}>
+          <Text>Tags: </Text>
+          <FlatList
+            style={styles.list}
+            data={artist.tags.tag}
+            renderItem={({ item, index }) => (
+              <Text style={styles.tags} key={index}>
+                {item.name}
+              </Text>
+            )}
+            keyExtractor={() => shortid.generate()}
+            horizontal
+          />
         </View>
-        <Text>{artist.bio.summary}</Text>
-      </ImageBackground>
+        <View>
+          <Text>{artist.bio.summary}</Text>
+        </View>
+      </View>
     </View>
   ) : (
     <View style={styles.loading}>
@@ -40,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   loading: {
     flex: 1,
@@ -49,8 +60,26 @@ const styles = StyleSheet.create({
   },
   artistImage: {
     width: "100%",
-    height: "100%",
+    height: "30%",
     resizeMode: "contain",
+  },
+  artistName: {
+    fontSize: 34,
+    marginBottom: 10,
+    marginTop: 60,
+  },
+  artistBio: {
+    paddingHorizontal: 10,
+  },
+  tagsCont: {
+    marginBottom: 20,
+    height: 100,
+  },
+  tags: {
+    padding: 10,
+  },
+  list: {
+    marginTop: 15,
   },
 });
 

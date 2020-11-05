@@ -23,6 +23,13 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
     getTracks(page);
   };
 
+  const onEndReached = () => {
+    if (!isLoading) {
+      setPage(page + 1);
+      loadMore();
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -32,13 +39,7 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
         keyExtractor={() => shortid.generate()}
         initialNumToRender={8}
         maxToRenderPerBatch={10}
-        onEndReached={() => {
-          if (!isLoading) {
-            console.log("gdsrg");
-            setPage(page + 1);
-            loadMore();
-          }
-        }}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0}
       />
     </View>

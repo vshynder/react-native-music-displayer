@@ -10,12 +10,13 @@ const Stack = createStackNavigator();
 
 export default function WrappedApp() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Author" component={AuthorScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Home">
+    //     <Stack.Screen name="Home" component={HomeScreen} />
+    //     <Stack.Screen name="Author" component={AuthorScreen} />
+    //     <Stack.Screen name="Search" component={SearchScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <HomeScreen />
   );
 }

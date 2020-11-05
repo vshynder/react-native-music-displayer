@@ -1,33 +1,27 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import shortid from "shortid";
+
+import TrackPreview from "../components/TrackPreview";
 
 import { connect } from "react-redux";
 
 import { operations } from "../redux";
 
-function HomeScreen({ navigation, getMovies, topTracks }) {
+function HomeScreen({ navigation, getTracks, topTracks }) {
   useEffect(() => {
-    getMovies();
+    getTracks();
   }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
+        style={styles.list}
         data={topTracks}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-          </View>
+          <TrackPreview navigation={navigation} track={item} />
         )}
-      />
-      <Text>Home screen</Text>
-      <Button
-        title="Go to author page"
-        onPress={() => navigation.navigate("Author")}
-      />
-      <Button
-        title="Go to search page"
-        onPress={() => navigation.navigate("Search")}
+        keyExtractor={() => shortid.generate()}
       />
     </View>
   );
@@ -40,6 +34,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  list: {
+    width: "100%",
+    paddingHorizontal: 10,
+  },
 });
 
 const mapStateToProps = (state) => ({
@@ -47,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovies: () => dispatch(operations.getTopMusic()),
+  getTracks: (page) => dispatch(operations.getTopMusic(page)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

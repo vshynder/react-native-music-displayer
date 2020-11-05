@@ -6,8 +6,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { musicReducer } from "./src/redux";
 
-// import WrappedApp from "./WrappedApp";
-import HomeScreen from "./src/screens/HomeScreen";
+import WrappedApp from "./WrappedApp";
 
 const store = configureStore({
   reducer: {
@@ -18,7 +17,7 @@ const store = configureStore({
 export default function App() {
   return (
     <Provider store={store}>
-      <HomeScreen />
+      <WrappedApp />
     </Provider>
   );
 }

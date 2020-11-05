@@ -6,13 +6,9 @@ import TrackPreview from "../components/TrackPreview";
 
 import { connect } from "react-redux";
 
-import { operations, actions } from "../redux";
+import { operations } from "../redux";
 
 function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
-  const [
-    onEndReachedCalledDuringMomentum,
-    setOnEndReachedCalledDuringMomentum,
-  ] = useState(true);
   const [page, setPage] = useState(2);
 
   useEffect(() => {
@@ -37,15 +33,13 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
         initialNumToRender={8}
         maxToRenderPerBatch={10}
         onEndReached={() => {
-          if (!onEndReachedCalledDuringMomentum && !isLoading) {
+          if (!isLoading) {
             console.log("gdsrg");
             setPage(page + 1);
             loadMore();
-            setOnEndReachedCalledDuringMomentum(true);
           }
         }}
-        onEndReachedThreshold={0.5}
-        onMomentumScrollBegin={() => setOnEndReachedCalledDuringMomentum(false)}
+        onEndReachedThreshold={0}
       />
     </View>
   );

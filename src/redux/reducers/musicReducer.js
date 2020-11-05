@@ -1,4 +1,4 @@
-import actions from "./actions";
+import actions from "../actions";
 import { createReducer } from "@reduxjs/toolkit";
 
 export const musicReducer = createReducer(null, {

@@ -1,8 +1,10 @@
 import React from "react";
 
 import { View, Text, StyleSheet, Linking, Alert, Image } from "react-native";
+import { connect } from "react-redux";
+import { operations } from "../redux";
 
-export default function TrackPreview({ track, navigation }) {
+function TrackPreview({ track, navigation, getArtist }) {
   const imageUri = track.image.length
     ? track.image[3]
       ? track.image[3]["#text"]
@@ -13,9 +15,11 @@ export default function TrackPreview({ track, navigation }) {
 
   const handleArtistPress = (e) => {
     navigation.navigate("Author");
+    const name = track.artist.name.split(" ").join("+");
+    getArtist(name);
   };
 
-  const handelLinkPress = async (e) => {
+  const handleLinkPress = async (e) => {
     const supported = await Linking.canOpenURL(track.url);
     if (supported) {
       await Linking.openURL(track.url);
@@ -39,7 +43,7 @@ export default function TrackPreview({ track, navigation }) {
         <Text onPress={handleArtistPress} style={styles.artistName}>
           {track.artist.name}
         </Text>
-        <Text onPress={handelLinkPress} style={styles.link}>
+        <Text onPress={handleLinkPress} style={styles.link}>
           {track.url.length > 45 ? track.url.substr(0, 45) + "..." : track.url}
         </Text>
       </View>
@@ -76,3 +80,9 @@ const styles = StyleSheet.create({
     color: "#cbcbcb",
   },
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  getArtist: (name) => dispatch(operations.getArtist(name)),
+});
+
+export default connect(null, mapDispatchToProps)(TrackPreview);

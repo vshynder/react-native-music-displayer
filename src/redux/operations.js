@@ -17,6 +17,17 @@ const getTopMusic = (page) => async (dispatch) => {
   }
 };
 
-export default {
-  getTopMusic,
+const getArtist = (name) => async (dispatch) => {
+  dispatch(actions.getArtistRequest());
+
+  try {
+    const GET_ARTIST_URL = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=${API_KEY}&format=json`;
+    const response = await fetch(GET_ARTIST_URL);
+    const { artist } = await response.json();
+    dispatch(actions.getArtistSuccess(artist));
+  } catch (error) {
+    dispatch(actions.getArtistError(error));
+  }
 };
+
+export default { getTopMusic, getArtist };

@@ -8,7 +8,6 @@ const getTopMusic = (page) => async (dispatch) => {
     page ? "&page=" + page : ""
   }`;
 
-  console.log(TOP_MUSIC_URL);
   fetch(TOP_MUSIC_URL)
     .then((response) => response.json())
     .then(({ tracks }) => dispatch(actions.getTopMusicSuccess(tracks.track)))

@@ -26,8 +26,10 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
   };
 
   const onEndReached = () => {
-    setPage(page + 1);
-    loadMore();
+    if (!isLoading) {
+      setPage(page + 1);
+      loadMore();
+    }
   };
 
   return (
@@ -42,7 +44,7 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
         maxToRenderPerBatch={10}
         onEndReached={onEndReached}
         onEndReachedThreshold={0}
-        ListFooterComponent={() => <TracksLoader isLoading={isLoading} />}
+        ListFooterComponent={() => <TracksLoader />}
       />
     </View>
   );
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   topTracks: state.music,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

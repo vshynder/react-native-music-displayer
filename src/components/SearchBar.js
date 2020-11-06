@@ -1,15 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-import { AntDesign } from "@expo/vector-icons";
+import SearchButton from "./SearchButton";
 
 export default function SearchBar({ navigation }) {
+  const handlePress = () => {
+    navigation.navigate("Search");
+  };
   return (
     <View style={styles.container}>
       <Text>Search for your favorite songs!</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-        <AntDesign name="search1" size={24} color="black" />
-      </TouchableOpacity>
+      <SearchButton onPress={handlePress} />
     </View>
   );
 }

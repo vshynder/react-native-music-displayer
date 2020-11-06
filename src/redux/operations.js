@@ -4,10 +4,11 @@ import { API_KEY } from "../constants";
 const getTopMusic = (page) => async (dispatch) => {
   dispatch(actions.getTopMusicRequest());
 
-  const TOP_MUSIC_URL = `http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${API_KEY}&format=json&limit=100${
+  const TOP_MUSIC_URL = `http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${API_KEY}&format=json${
     page ? "&page=" + page : ""
   }`;
 
+  console.log(TOP_MUSIC_URL);
   fetch(TOP_MUSIC_URL)
     .then((response) => response.json())
     .then(({ tracks }) => dispatch(actions.getTopMusicSuccess(tracks.track)))

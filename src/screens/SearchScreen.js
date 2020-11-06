@@ -7,7 +7,10 @@ import { operations } from "../redux";
 import _ from "lodash";
 import shortid from "shortid";
 
-function AuthorScreen({ results, getTracks }) {
+import SearchTrack from "../components/SearchTrack";
+import SearchButton from "../components/SearchButton";
+
+function AuthorScreen({ results, getTracks, navigation }) {
   const [query, setQuery] = useState("");
 
   const handleSubmit = () => {
@@ -15,20 +18,23 @@ function AuthorScreen({ results, getTracks }) {
     getTracks(queryString);
   };
 
-  const renderItem = ({ item }) => {
-    console.log(item);
-    return <Text>{item.name}</Text>;
-  };
+  const renderItem = ({ item }) => (
+    <SearchTrack navigation={navigation} track={item} />
+  );
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search for songs here"
-        onChangeText={(text) => setQuery(text)}
-        onSubmitEditing={handleSubmit}
-        value={query}
-      />
+      <View style={styles.search}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search for songs here"
+          onChangeText={(text) => setQuery(text)}
+          onSubmitEditing={handleSubmit}
+          value={query}
+        />
+        <SearchButton onPress={handleSubmit} />
+      </View>
+
       <FlatList
         style={styles.list}
         data={results}
@@ -46,19 +52,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  input: {
-    width: "100%",
-    height: 40,
-    fontSize: 24,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+  search: {
+    flexDirection: "row",
+    alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#cbcbcb",
-    marginBottom: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    fontSize: 24,
   },
   list: {
     width: "100%",
-    marginLeft: 20,
+    paddingTop: 20,
+    paddingHorizontal: 20,
   },
 });
 

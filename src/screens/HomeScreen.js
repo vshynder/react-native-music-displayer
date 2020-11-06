@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import shortid from "shortid";
 
 import TrackPreview from "../components/TrackPreview";
 import SearchBar from "../components/SearchBar";
+import TracksLoader from "../components/TracksLoader";
 
 import { connect } from "react-redux";
 
@@ -25,10 +26,8 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
   };
 
   const onEndReached = () => {
-    if (!isLoading) {
-      setPage(page + 1);
-      loadMore();
-    }
+    setPage(page + 1);
+    loadMore();
   };
 
   return (
@@ -43,6 +42,7 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
         maxToRenderPerBatch={10}
         onEndReached={onEndReached}
         onEndReachedThreshold={0}
+        ListFooterComponent={() => <TracksLoader isLoading={isLoading} />}
       />
     </View>
   );

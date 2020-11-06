@@ -1,7 +1,7 @@
 import actions from "../actions";
 import { createReducer } from "@reduxjs/toolkit";
 
-export const musicReducer = createReducer(null, {
+export const musicReducer = createReducer([], {
   [actions.getTopMusicSuccess]: (state, action) => {
     if (state) {
       return [...state, ...action.payload];
@@ -10,4 +10,5 @@ export const musicReducer = createReducer(null, {
     }
   },
   [actions.clearList]: (state, action) => [],
+  [actions.getTopMusicError]: (state, action) => console.log(action.payload),
 });

@@ -13,7 +13,7 @@ export default function WrappedApp() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Author" component={AuthorScreen} />
+        <Stack.Screen name="Artist" component={AuthorScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>

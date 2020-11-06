@@ -14,7 +14,7 @@ function TrackPreview({ track, navigation, getArtist }) {
     : null;
 
   const handleArtistPress = (e) => {
-    navigation.navigate("Author");
+    navigation.navigate("Artist");
     const name = track.artist.name.split(" ").join("+");
     getArtist(name);
   };

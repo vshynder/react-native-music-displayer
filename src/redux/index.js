@@ -1,5 +1,5 @@
 import actions from "./actions";
 import operations from "./operations";
-import { artistReducer, musicReducer } from "./reducers";
+import { artistReducer, musicReducer, searchReducer } from "./reducers";
 
-export { actions, operations, artistReducer, musicReducer };
+export { actions, operations, artistReducer, musicReducer, searchReducer };

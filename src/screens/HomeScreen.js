@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import shortid from "shortid";
 
 import TrackPreview from "../components/TrackPreview";
+import SearchBar from "../components/SearchBar";
 
 import { connect } from "react-redux";
 
@@ -32,6 +33,7 @@ function HomeScreen({ navigation, getTracks, topTracks, isLoading }) {
 
   return (
     <View style={styles.container}>
+      <SearchBar navigation={navigation} />
       <FlatList
         style={styles.list}
         data={topTracks}
